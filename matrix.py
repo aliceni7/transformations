@@ -10,12 +10,13 @@ z0  z1  ... zn
 import math
 
 def make_translate( x, y, z ):
-    matrix = new_matrix(0,0)
+    matrix = new_matrix(4,4)
     ident(matrix)
     for end in range( len(matrix[0]) - 1):
-        matrix[4][end] = x
+        matrix[3][end] = x
         x = y
         y = z
+    return matrix
 
 def make_scale( x, y, z ):
     matrix = new_matrix(0,0)
@@ -23,7 +24,7 @@ def make_scale( x, y, z ):
         for col in range( len(matrix) ):
             if col == 4:
                 matrix[col][row] = 1
-            else if row == col:
+            elif row == col:
                 matrix[col][row] = x
                 x = y
                 y = z

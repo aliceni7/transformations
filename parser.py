@@ -32,5 +32,19 @@ The file follows the following format:
 
 See the file script for an example of the file format
 """
-def parse_file( fname, points, transform, screen, color ):
+def parse_file( fname, point, transform, screen, color ):
     f = open(fname, "r")
+    #lines = f.readlines()
+    x = 10
+    while x > 0:
+        line = f.readline()
+        if line.equals("line"):
+            coords = f.readline()
+            points = coords.split()
+            add_edge(int(points[0]), int(points[1]), int(points[2]), int(points[3]), int(points[4]), int(points[5]))
+        x = x - 1
+            
+            
+            
+            
+    
