@@ -19,24 +19,59 @@ def make_translate( x, y, z ):
     return matrix
 
 def make_scale( x, y, z ):
-    matrix = new_matrix(0,0)
-    for row in range( len(matrix[0]) ):
+    matrix = new_matrix(4,4)
+    ident(matrix)
+    for row in range( len(matrix[0]) - 1 ):
         for col in range( len(matrix) ):
-            if col == 4:
-                matrix[col][row] = 1
-            elif row == col:
+            if row == col:
                 matrix[col][row] = x
                 x = y
                 y = z
+    return matrix
             
 def make_rotX( theta ):
-    pass
+    theta = math.radians(theta)
+    matrix = new_matrix(4,4)
+    ident(matrix)
+    for row in range(3):
+        for col in range(3):
+            if col == 1 and row == 1:
+                matrix[col][row] = math.cos(theta)
+            if col == 2 and row == 1:
+                matrix[col][row] = -1 * math.sin(theta)
+                matrix[row][col] = math.sin(theta)
+            if col == 2 and row == 2:
+                matrix[col][row] = math.cos(theta)
+    return matrix
 
 def make_rotY( theta ):
-    pass
+    theta = math.radians(theta)
+    matrix = new_matrix(4,4)
+    ident(matrix)
+    for row in range(3):
+        for col in range(3):
+            if col == 0 and row == 0:
+                matrix[col][row] = math.cos(theta)
+            if col == 2 and row == 0:
+                matrix[col][row] = math.sin(theta)
+                matrix[row][col] = math.sin(theta)
+            if col == 2 and row == 2:
+                matrix[col][row] = math.cos(theta)
+    return matrix
 
 def make_rotZ( theta ):
-    pass
+    theta = math.radians(theta)
+    matrix = new_matrix(4,4)
+    ident(matrix)
+    for row in range(2):
+        for col in range(2):
+            if row == col:
+                matrix[col][row] = math.cos(theta)
+            if col == 1 and row == 0:
+                matrix[col][row] = -1 * math.sin(theta)
+                matrix[row][col] = math.sin(theta)
+    return matrix
+
 
 #print the matrix such that it looks like
 #the template in the top comment

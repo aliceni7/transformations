@@ -14,7 +14,7 @@ The file follows the following format:
          scale: create a scale matrix,
                 then multiply the transform matrix by the scale matrix -
                 takes 3 arguments (sx, sy, sz)
-         translate: create a translation matrix,
+         move: create a translation matrix,
                     then multiply the transform matrix by the translation matrix -
                     takes 3 arguments (tx, ty, tz)
          rotate: create a rotation matrix,
@@ -35,14 +35,17 @@ See the file script for an example of the file format
 def parse_file( fname, point, transform, screen, color ):
     f = open(fname, "r")
     #lines = f.readlines()
-    x = 10
+    x = 2
     while x > 0:
         line = f.readline()
-        if line.equals("line"):
+        if line == 'line\n':
+            print "hi"
             coords = f.readline()
             points = coords.split()
-            add_edge(int(points[0]), int(points[1]), int(points[2]), int(points[3]), int(points[4]), int(points[5]))
+            print points
+            add_edge(transform, int(points[0]), int(points[1]), int(points[2]), int(points[3]), int(points[4]), int(points[5]))
         x = x - 1
+    
             
             
             
