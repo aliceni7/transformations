@@ -32,19 +32,44 @@ The file follows the following format:
 
 See the file script for an example of the file format
 """
-def parse_file( fname, point, transform, screen, color ):
+def parse_file( fname, points, transform, screen, color ):
+    g = open(fname, "r")
+    x = len(g.readlines())
+    g.close()
     f = open(fname, "r")
-    #lines = f.readlines()
-    x = 2
+    print x
     while x > 0:
         line = f.readline()
         if line == 'line\n':
-            print "hi"
             coords = f.readline()
-            points = coords.split()
-            print points
-            add_edge(transform, int(points[0]), int(points[1]), int(points[2]), int(points[3]), int(points[4]), int(points[5]))
+            point = coords.split()
+            add_edge(points, int(point[0]), int(point[1]), int(point[2]), int(point[3]), int(point[4]), int(point[5]))
+        elif line == 'display\n':
+            clear_screen(screen)
+            draw_lines(points,screen,color)
+            display(screen)
+        elif line == 'ident\n':
+            ident(transform)
+        elif line == 'scale\n':
+            coords = f.readline()
+            point = coords.split()
+            matrix_mult(make_scale(int(point[0]),int(point[1]),int(point[2])), transform)
+        elif line == 'apply\n':
+            matrix_mult(transform,points)
+        elif line == 'rotate\n':
+            info = f.readline()
+            infoz = info.split()
+            matrix_mult(make_rot(infoz[0], int(infoz[1])), transform)
+        elif line == 'move\n':
+            info = f.readline()
+            infoz = info.split()
+            matrix_mult(make_translate(int(infoz[0]),int(infoz[1]),int(infoz[2])),transform)
+        elif line == 'save\n':
+            clear_screen(screen)
+            draw_lines(points,screen,color)
+            save_extension(screen, str(f.readline()))
         x = x - 1
+    f.close()
     
             
             
