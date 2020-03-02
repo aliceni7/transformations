@@ -6,7 +6,7 @@ from matrix import *
 screen = new_screen()
 color = [ 0, 255, 0 ]
 edges = []
-transform = new_matrix(0,0)
+transform = new_matrix(4,4)
 
 #move = make_translate(1,2,3)
 #print_matrix(move)
@@ -22,6 +22,7 @@ transform = new_matrix(0,0)
 
 #rotY = make_rotY(90)
 #print_matrix(rotY)
+
 
 
 parse_file( 'script', edges, transform, screen, color )

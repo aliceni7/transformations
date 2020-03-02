@@ -29,19 +29,38 @@ def make_scale( x, y, z ):
                 y = z
     return matrix
             
-def make_rotX( theta ):
-    theta = math.radians(theta)
+def make_rot( axis, theta ):
+    theta = theta * math.pi / 180.0
     matrix = new_matrix(4,4)
     ident(matrix)
-    for row in range(3):
-        for col in range(3):
-            if col == 1 and row == 1:
-                matrix[col][row] = math.cos(theta)
-            if col == 2 and row == 1:
-                matrix[col][row] = -1 * math.sin(theta)
-                matrix[row][col] = math.sin(theta)
-            if col == 2 and row == 2:
-                matrix[col][row] = math.cos(theta)
+    if axis == 'x':
+        for row in range(3):
+            for col in range(3):
+                if col == 1 and row == 1:
+                    matrix[col][row] = math.cos(theta)
+                if col == 2 and row == 1:
+                    matrix[col][row] = -1 * math.sin(theta)
+                    matrix[row][col] = math.sin(theta)
+                if col == 2 and row == 2:
+                    matrix[col][row] = math.cos(theta)
+    if axis == 'y':
+        for row in range(3):
+            for col in range(3):
+                if col == 0 and row == 0:
+                    matrix[col][row] = math.cos(theta)
+                if col == 2 and row == 0:
+                    matrix[col][row] = math.sin(theta)
+                    matrix[row][col] = math.sin(theta)
+                if col == 2 and row == 2:
+                    matrix[col][row] = math.cos(theta)
+    if axis == 'z':
+        for row in range(2):
+            for col in range(2):
+                if row == col:
+                    matrix[col][row] = math.cos(theta)
+                if col == 1 and row == 0:
+                    matrix[col][row] = -1 * math.sin(theta)
+                    matrix[row][col] = math.sin(theta)
     return matrix
 
 def make_rotY( theta ):
